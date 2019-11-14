@@ -10,7 +10,8 @@ packages <-  c("tidyverse",
                "devtools",
                "usethis",
                "rstudioapi",
-               "gapminder")
+               "gapminder",
+               "binb")
 
 have   <- rownames(installed.packages())
 needed <- setdiff(packages, have)
