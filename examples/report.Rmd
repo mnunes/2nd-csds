@@ -1,0 +1,184 @@
+---
+title: "Report"
+author: "Marcus Nunes"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: bookdown::html_document2
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+```
+
+# Introduction
+
+We will be using this .Rmd file as a template for this short course. Please save a copy and edit it as we go through. Every change we make to this source file can be visualized using the command ctrl + shift + K (command + shift + K on a Mac).
+
+# Report
+
+Let's take a look at the cars dataset, present in R's memory. From now on, every snippet of this `.Rmd` file that starts with ```` ```{r} ```` will be called `chunk`. Each `chunk` is a snippet of R code that will be executed and whose output will go directly to the final report.
+
+```{r Cars}
+cars
+```
+
+This is a 50 row data set. The lines in the output take up a lot of space on the page. So instead of displaying it in its entirety, let's calculate some statistics about it.
+
+```{r CarsSummary}
+summary(cars)
+```
+
+**Interesting**. We found the *Five Numbers Summary* of the dataset `cars`. By the way, notice how I took advantage of this short paragraph to demonstrate some ~~pocibilities~~ possibilities of text formatting using R Markdown.
+
+> É possível até mesmo escrever citações com a linguagem!
+> 
+> Nunes, M.A. (2019)
+
+But let's go back to the analysis, because this is what matters here. The next logical step is to make a scatter plot.
+
+```{r CarsPlot1}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point()
+```
+
+Note that the chunks reproduce exactly what the R code should reproduce. Therefore, we need to identify correctly the plot axes:
+
+```{r CarsPlot2}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  labs(x = "Speed (mph)", y = "Distance (feet)")
+```
+
+Note that this chunk displays both the code and the result of the plot. If we were writing a report for a client, the code part should be deleted. Fortunately, R Markdown allows us to put the option `echo = FALSE` in the chunk definition, so only the plot is shown:
+
+```{r CarsPlot3, echo = FALSE}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  labs(x = "Speed (mph)", y = "Distance (feet)")
+```
+
+If we set the `eval = FALSE` option, only the code is displayed, without the plot being displayed:
+
+```{r CarsPlot4, eval = FALSE}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  labs(x = "Speed (mph)", y = "Distance (feet)")
+```
+
+If we want, we can put a caption on the picture. This figure can even be referenced later:
+
+```{r CarsPlot5, echo = FALSE, fig.cap = "Scatter plot between the distance required to completely stop a car (in feet) and its speed (in miles per hour)."}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  labs(x = "Speed (mph)", y = "Distance (feet)")
+```
+
+Here's how I can reference Figure \@ref(fig:CarsPlot5) as if I were using LaTeX. Note that I must put `fig:` as a reference to call the figure correctly. This should be done for **all** figures in the text.
+
+I can even do it again in another color, to show the numbering is updated as in traditional LaTeX:
+
+```{r CarsPlot6, echo = FALSE, fig.cap = "Scatter plot with pink dots between the distance required to completely brake a car (in feet) and its speed (in miles per hour)."}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point(colour = "pink") +
+  labs(x = "Speed (mph)", y = "Distance (feet)")
+```
+
+Therefore, Figure \@ref(fig:CarsPlot6) shows what was promised in the previous paragraph. In addition to graphics, we can fit models to our data. Let's do a linear regression on the `cars` dataset:
+
+```{r CarsLM1}
+fit <- lm(dist ~ speed, data = cars)
+summary(fit)
+```
+
+This output would be interesting to us statisticians. But what about the average user? How can I get him to see the result of the adjustment we made without using the standard output of R? First, we need to identify what part of the object `fit` has the information we want:
+
+```{r CarsLM2}
+summary(fit)$coefficients
+```
+
+Now, let's use the `knitr` package and its `kable` function to get a better table with our results:
+
+```{r CarsLM3}
+library(knitr)
+kable(summary(fit)$coefficients, 
+      format = "html")
+```
+
+Notice that we can make a table, but it's ugly. This table
+
+1. is too close to the text
+
+2. is off center
+
+3. has no title
+
+4. has too many digits
+
+5. but look on the bright side: at least we learned to make a numbered list in R Markdown.
+
+We can fix all of these problems in a fairly reasonable way. Library `kableExtra` comes to help us:
+
+```{r CarsLM4}
+library(kableExtra)
+kable(summary(fit)$coefficients, 
+      format = "html", 
+      caption = "Regression model result when applied to data `cars`.", 
+      digits = 4) %>%
+  kable_styling(position = "center")
+```
+
+Suppose we do not want the rows to be identified as _(Intercept)_ and _speed_. Let's say we want them to be identified as _Intercept_ (without paranthesis) and _Speed_ (capitalized).
+
+```{r CarsLM5}
+fit.results <- as.data.frame(summary(fit)$coefficients)
+row.names(fit.results) <- c("Intercept", "Speed")
+kable(fit.results, 
+      format = "html", 
+      caption = "Regression model result when applied to data `cars`.", 
+      digits = 4) %>%
+  kable_styling(position = "center")
+```
+
+Now Table \@ref(tab:CarsLM5) looks exactly as we thought it would. Note that, similar to what we did with the figures, we must put `tab:` as a reference to call the table. This should also be done for **all** tables in the text.
+
+Something similar can be done to the columns of any data frame. Notice how the column names have changed in \@ref(tab:CarsLM6).
+
+```{r CarsLM6}
+names(fit.results) <- c("Estimated Value", "Standard Error", "Statistic", "p-value")
+kable(fit.results, 
+      format = "html", 
+      caption = "Regression model result when applied to data `cars`.", 
+      digits = 4) %>%
+  kable_styling(position = "center")
+```
+
+Now we can make the final plot of our analysis by plotting the data together with the fitted line. This result is found in Figure \@ref(fig:CarsPlot7).
+
+```{r CarsPlot7, fig.cap="Linear regression fit between the distance required to completely brake a car (in feet) and its speed (in miles per hour)."}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  labs(x = "Speed (mph)", y = "Distance (feet)") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+If we consider Figure \@ref(fig:CarsPlot7) too small, we can change its dimensions, as shown in Figure \@ref(fig:CarsPlot8).
+
+```{r CarsPlot8, fig.height = 8, fig.width = 5, fig.cap = "Linear regression fit between the distance required to completely brake a car (in feet) and its speed (in miles per hour)."}
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  labs(x = "Speed (mph)", y = "Distance (feet)") +
+  geom_smooth(method = "lm", se = FALSE, colour = "black")
+```
+
+We only need to run the residuals anaysis to finish our report. Figure \@ref(fig:CarsPlot9) shows how to do it in one line of code.
+
+```{r CarsPlot9, fig.cap = "Residual analysis of our regression model."}
+library(ggfortify)
+autoplot(fit)
+```
+
+We can use R Markdown to mix R results inside text. For exemple, in this example, the regression intercept is `r fit$coefficients[1]` and its slope is `r fit$coefficients[2]`. As any R code output, we can limit the number of digits very easily: `r round(fit$coefficients[1], digits = 4)` and `r round(fit$coefficients[2], digits = 4)`
+
+# Conclusion
+
+That's it. There are many other resources available in R Markdown, but we covered the basics in this tutorial.
+
