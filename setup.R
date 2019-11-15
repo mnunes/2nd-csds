@@ -1,17 +1,22 @@
 # short course setup
 
-packages <-  c("tidyverse",
-               "rlang",
-               "purrr",
-               "lubridate",
-               "glue",
-               "knitr",
-               "rmarkdown",
+packages <-  c("binb",
+               "bookdown",
                "devtools",
-               "usethis",
-               "rstudioapi",
                "gapminder",
-               "binb")
+               "GGally",
+               "ggfortify",
+               "glue",
+               "kableExtra",
+               "knitr",
+               "lubridate",
+               "purrr",
+               "rlang",
+               "rmarkdown",
+               "rstudioapi",
+               "rticles",
+               "tidyverse",
+               "usethis")
 
 have   <- rownames(installed.packages())
 needed <- setdiff(packages, have)
