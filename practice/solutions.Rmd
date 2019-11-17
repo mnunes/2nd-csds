@@ -1,0 +1,149 @@
+---
+title: "Practice"
+author: "Marcus Nunes"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: bookdown::pdf_document2
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(GGally)
+```
+
+# Instructions
+
+Save a version of this file and call it `practice_answers.Rmd`. Remove this first section and practice what we learned today, writing a small report analyzing the `iris` dataset. 
+
+After your work is done, change the code `output: bookdown::html_document2` on line 5 to `output: bookdown::pdf_document2` in order to have a pdf. It is preferable to work with the HTML version of the report first to save time and create the pdf only after the analysis is complete.
+
+
+
+# Introduction
+
+The Iris flower dataset is a well known multivariate dataset introduced in @Fisher1936. It contains 150 observations of three species of plants called _Iris setosa_, _Iris versicolor_, and _Iris virginica_. In this report we will analyze this dataset and show why it is interesting.
+
+# Descriptive Statistics
+
+We will describe the most important features about the Iris flower dataset in this section.
+
+## Tables
+
+1. Create a table with the means for `ìris` dataset. Describe your findings.
+
+```{r q1}
+results <- iris %>%
+  select_if(is.numeric) %>%
+  summarise_all(list(mean = mean))
+
+kable(results, 
+      format = "latex", 
+      booktabs = TRUE,
+      caption = "Regression model result when applied to data `iris`.", 
+      digits = 4) %>%
+  kable_styling(position = "center")
+```
+
+The variable with the highest mean is Sepal.Length, with `r round(results[1], digits = 2)`cm.
+
+
+## Plots
+
+2. Make scatter plots showing the relationships between all the numeric variables in this dataset. What you can see?
+
+```{r q2, fig.cap="Exploratory data analysis for the iris dataset."}
+iris %>%
+  select_if(is.numeric) %>%
+  ggpairs()
+```
+
+It seems all the variables have linear relationships between them. Some are higher and some are lower, but they do seem linear, as we can see in Figure \@ref(fig:q2).
+
+3. Plot the scatter plot between the two variables with the highest correlation, coloring the points according to the flower species. Is there anything special about this plot?
+
+```{r q3, fig.cap="Scatter plot of iris dataset."}
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, colour = Species)) +
+  geom_point() +
+  labs(x = "Petal Length", y = "Petal Width")
+```
+
+\@ref(fig:q3) shows that there are two main clusters in this dataset. One, to the left, with only _Iris setosa_, and other to the right, with both _Iris versicolor_ and _virginica_.
+
+
+# Modeling
+
+4. Fit a linear regression model between the two variables you found on question 3. Use the variable with the highest mean as the predictor variable.
+
+```{r q4}
+fit <- lm(Petal.Width ~ Petal.Length, data = iris)
+kable(summary(fit)$coefficients, 
+      format = "latex", 
+      booktabs = TRUE,
+      caption = "Regression model result when applied to data `iris`.", 
+      digits = 4) %>%
+  kable_styling(position = "center")
+```
+
+5. Plot the regression line on the scatter plot.
+
+```{r q5, fig.cap="Linear regression model fitted to iris dataset."}
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, colour = "black") +
+  labs(x = "Petal Length", y = "Petal Width")
+```
+
+6. Make a boxplot comparing the observations of the `Sepal.Width` variable between the three plant species. Do you think there is a group whose mean is different from the others?
+
+```{r q6, fig.cap="Boxplot comparing the means of sepal width for the iris dataset."}
+ggplot(iris, aes(x=Species, y=Sepal.Width)) +
+  geom_boxplot() +
+  labs(x="Species", y="Sepal Width")
+```
+
+According to Figure \@ref(fig:q6), it seems _Iris setosa_ has a higher average than the other two species.
+
+7. Test the hypothesis
+
+\begin{align*}
+H_0 &: \mu_1 = \mu_2 = \mu_3 \\
+H_0 &: \mbox{at least one pair $\mu_i \neq \mu_j$, if $i \neq j$}
+\end{align*}
+
+\noindent where $\mu_i$ is the mean for the variable `Sepal.Width` for the groups 
+
+* $i = 1 \mbox{ (setosa})$
+
+* $i = 2 \mbox{ (versicolor})$
+
+* $i = 3 \mbox{ (virginica})$
+
+What is your conclusion?
+
+```{r q7}
+fit.anova <- aov(Sepal.Width ~ Species, data = iris)
+results.anova <- summary(fit.anova)
+options(knitr.kable.NA = "")
+kable(results.anova[[1]], 
+      format = "latex", 
+      booktabs = TRUE,
+      caption = "ANOVA results.", 
+      digits = 4) %>%
+  kable_styling(position = "center")
+```
+
+According to Table \@ref(tab:q7), p-value = `r round(results.anova[[1]][1, 5], digits = 4)`. Therefore, we reject $H_0$ at level $\alpha = 0,05$. Therefore, there is at least one pair $\mu_i \neq \mu_j$, if $i \neq j$.
+
+
+# Conclusion
+
+As we could see, this dataset is great to practice statistical concepts.
+
+# References
+
+
+
+
+
