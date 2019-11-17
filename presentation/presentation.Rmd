@@ -143,7 +143,7 @@ Every R Markdown document has three parts:
 
 - Open the file `practice/practice.Rmd` and follow the instructions
 
-- Notice the solutions are in `practice/solutions.Rmd`, but avoid to look at it and try to figure out the solutions by yourself
+- Notice the solutions are in `practice/solutions.Rmd`, but avoid to look at them and try to figure out the solutions by yourself
 
 - Raise your hand or call my name if you have any questions
 
