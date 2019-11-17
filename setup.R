@@ -16,6 +16,7 @@ packages <-  c("binb",
                "rstudioapi",
                "rticles",
                "tidyverse",
+               "tinytex",
                "usethis")
 
 have   <- rownames(installed.packages())
