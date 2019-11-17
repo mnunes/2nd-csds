@@ -18,4 +18,4 @@ You need to install the following software:
 
 <hr >
 
-This short course was prepared by [Marcus Nunes](https://marcusnunes.me), Assistant Professor at UFRN Statistics Department.
+This short course was prepared by [Marcus Nunes](https://marcusnunes.me), Assistant Professor at Department of Statistics - UFRN.
