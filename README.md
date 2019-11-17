@@ -13,7 +13,7 @@ You need to install the following software:
 - `R`: [https://cran.r-project.org/](https://cran.r-project.org/)
 - RStudio: [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
 - If you're running Windows, you need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
-- Some packages either running `source("https://github.com/mnunes/2nd-csds/blob/master/setup.R")` inside RStudio or clicking on [https://github.com/mnunes/2nd-csds/blob/master/setup.R](https://github.com/mnunes/2nd-csds/blob/master/setup.R) and copying and pasting its contents
+- Some packages either running `source("https://raw.githubusercontent.com/mnunes/2nd-csds/master/setup.R")` inside RStudio or clicking on [https://github.com/mnunes/2nd-csds/blob/master/setup.R](https://github.com/mnunes/2nd-csds/blob/master/setup.R) and copying and pasting its contents
 
 
 <hr >
