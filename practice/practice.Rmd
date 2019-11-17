@@ -1,0 +1,76 @@
+---
+title: "Practice"
+author: "Marcus Nunes"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: bookdown::html_document2
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+# Instructions
+
+Save a version of this file and call it `practice_answers.Rmd`. Remove this first section and practice what we learned today, writing a small report analyzing the `iris` dataset. 
+
+After your work is done, change the code `output: bookdown::html_document2` on line 5 to `output: bookdown::pdf_document2` in order to have a pdf. It is preferable to work with the HTML version of the report first to save time and create the pdf only after the analysis is complete.
+
+
+
+# Introduction
+
+The Iris flower dataset is a well known multivariate dataset introduced in @Fisher1936. It contains 150 observations of three species of plants called _Iris setosa_, _Iris versicolor_, and _Iris virginica_. In this report we will analyze this dataset and show why it is interesting.
+
+# Descriptive Statistics
+
+We will describe the most important features about the Iris flower dataset in this section.
+
+## Tables
+
+1. Create a table with the means for `ìris` dataset. Describe your findings.
+
+
+## Plots
+
+2. Make scatter plots showing the relationships between all the numeric variables in this dataset. What you can see?
+
+3. Plot the scatter plot between the two variables with the highest correlation, coloring the points according to the flower species. Is there anything special about this plot?
+
+
+
+# Modeling
+
+4. Fit a linear regression model between the two variables you found on question 3. Use the variable with the highest mean as the predictor variable.
+
+5. Plot the regression line on the scatter plot.
+
+6. Make a boxplot comparing the observations of the `Sepal.Width` variable between the three plant species. Do you think there is a group whose mean is different from the others?
+
+7. Test the hypothesis
+
+\begin{align*}
+H_0 &: \mu_1 = \mu_2 = \mu_3 \\
+H_0 &: \mbox{at least one pair $\mu_i \neq \mu_j$, if $i \neq j$}
+\end{align*}
+
+\noindent where $\mu_i$ is the mean for the variable `Sepal.Width` for the groups 
+
+* $i = 1 \mbox{ (setosa})$
+
+* $i = 2 \mbox{ (versicolor})$
+
+* $i = 3 \mbox{ (virginica})$
+
+What is your conclusion?
+
+# Conclusion
+
+As we could see, this dataset is great to practice statistical concepts.
+
+# References
+
+
+
+
+
