@@ -1,7 +1,7 @@
 ---
-title: "Report"
-author: "Marcus Nunes"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+title: "Live Report"
+author: "Nunes, M. A."
+date: "15/11/2019"
 output: bookdown::html_document2
 ---
 
@@ -157,12 +157,12 @@ Now we can make the final plot of our analysis by plotting the data together wit
 ggplot(cars, aes(x = speed, y = dist)) +
   geom_point() +
   labs(x = "Speed (mph)", y = "Distance (feet)") +
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = TRUE)
 ```
 
 If we consider Figure \@ref(fig:CarsPlot7) too small, we can change its dimensions, as shown in Figure \@ref(fig:CarsPlot8).
 
-```{r CarsPlot8, fig.height = 8, fig.width = 5, fig.cap = "Linear regression fit between the distance required to completely brake a car (in feet) and its speed (in miles per hour)."}
+```{r CarsPlot8, fig.height = 5, fig.width = 5, fig.cap = "Linear regression fit between the distance required to completely brake a car (in feet) and its speed (in miles per hour)."}
 ggplot(cars, aes(x = speed, y = dist)) +
   geom_point() +
   labs(x = "Speed (mph)", y = "Distance (feet)") +
@@ -176,7 +176,7 @@ library(ggfortify)
 autoplot(fit)
 ```
 
-We can use R Markdown to mix R results inside text. For exemple, in this example, the regression intercept is `r fit$coefficients[1]` and its slope is `r fit$coefficients[2]`. As any R code output, we can limit the number of digits very easily: `r round(fit$coefficients[1], digits = 4)` and `r round(fit$coefficients[2], digits = 4)`
+We can use R Markdown to mix R results inside text. For example, in out analysis, the regression intercept is `r fit$coefficients[1]` and its slope is `r fit$coefficients[2]`. As any R code output, we can limit the number of digits very easily: `r round(fit$coefficients[1], digits = 4)` and `r round(fit$coefficients[2], digits = 4)`
 
 # Conclusion
 

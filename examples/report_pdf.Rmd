@@ -181,7 +181,7 @@ library(ggfortify)
 autoplot(fit)
 ```
 
-We can use R Markdown to mix R results inside text. For exemple, in this example, the regression intercept is `r fit$coefficients[1]` and its slope is `r fit$coefficients[2]`. As any R code output, we can limit the number of digits very easily: `r round(fit$coefficients[1], digits = 4)` and `r round(fit$coefficients[2], digits = 4)`
+We can use R Markdown to mix R results inside text. For example, in this analysis, the regression intercept is `r fit$coefficients[1]` and its slope is `r fit$coefficients[2]`. As any R code output, we can limit the number of digits very easily: `r round(fit$coefficients[1], digits = 4)` and `r round(fit$coefficients[2], digits = 4)`
 
 # Conclusion
 
