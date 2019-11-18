@@ -84,7 +84,7 @@ knitr::opts_chunk$set(cache=TRUE)
 
 - Missing steps in the code
 
-- Go to statistical software, run the analysis, export the figures, insert them in the paper, they do not look good, remove, go back to statistical software, change the figures, export tem again, insert them in the paper, they still do not look good, rinse and reapeat until exhaustion
+- Go to statistical software, run the analysis, export the figures, insert them in the paper, they do not look good, remove, go back to statistical software, change the figures, export them again, insert in the paper, they still do not look good, rinse and reapeat until exhaustion
 
 
 ## Typical ~~Problems without~~ Solutions with R Markdown
