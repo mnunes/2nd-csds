@@ -1,7 +1,7 @@
 ---
-title: "Live Report"
-author: "Nunes, M. A."
-date: "15/11/2019"
+title: "Report"
+author: "Marcus Nunes"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: bookdown::html_document2
 ---
 
