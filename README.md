@@ -6,7 +6,7 @@ This course will be a practical introduction on how to create a reproducible wor
 
 This short course was a part of the scientific program of the [Second Conference on Statistics and Data Science](http://www.csds2019.ime.ufba.br/), on 18-20 November 2019.
 
-[![DOI](https://zenodo.org/badge/221529811.svg)](https://zenodo.org/badge/latestdoi/221529811)
+To cite this work, use [![DOI](https://zenodo.org/badge/221529811.svg)](https://zenodo.org/badge/latestdoi/221529811)
 
 ## Computer setup
 
